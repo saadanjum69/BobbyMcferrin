@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="index.js"></script>
+</head>
+<body onload="init()">
+  <div class="row align-items-center">
+    <select>
+      <option value=""> Select Song </option>
+      <option value="paris">Paris</option>
+      <option value="london">London</option>
+      <option value="athens">Athens</option>
+      <option value="madrid">Madrid</option>
+    </select>
+  </div>
+  <div>
+    <audio id="audio" controls="controls"   onended="skip()">
+        HTML5 MP3 audio required (Chrome, Safari, IE 9?)
+        </audio>
+   </div> 
+
+           
+              
+        
+
+    <div class="drag-items row">
+     <!-- <div id="outer-dropzone" class="dropzone"> -->
+     <div class="col">
+      <div class="left-circles">
+        <script>	
+    var data_count = data.length;
+        var value_1 = parseInt(data_count/2);
+   function myFunction(x) {
+  if (x.matches) { // If media query matches
+
+          var k=0;
+  
+             for(let j=0; j<value_1; j++){
+               var l = Math.floor(Math.random() * 20);
+               var t = Math.floor(Math.random() * 50);
+  
+               if(k == bg_image.length){
+                 k=0;
+                 }
+               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+j+'" src="'+data[j]['src']+'">'+data[j]['name']+'</div>');
+           k++;
+           if(j != 0){
+           if(j%3 == 0){
+                 document.write('<br>')
+               }
+             } }
+  } else {
+
+          var k=0;
+  
+             for(let j=0; j<value_1; j++){
+               var l = Math.floor(Math.random() * 200);
+               var t = Math.floor(Math.random() * 100);
+  
+               if(k == bg_image.length){
+                 k=0;
+                 }
+               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+j+'" src="'+data[j]['src']+'">'+data[j]['name']+'</div>');
+           k++;
+                 
+             } 
+  }
+}
+
+var x = window.matchMedia("(max-width: 767px)")
+myFunction(x) // Call listener function at run time
+x.addListener(myFunction) // Attach listener function on state changes
+
+                   
+           </script>
+      </div>
+    </div>
+      <!-- <div class="col"> -->
+        <div id="inner-dropzone" class="dropzone"></div>
+      <!-- </div> -->
+
+     <div class="col" style="position:inherit;">
+      <div class="right-circles">
+        <script>	
+
+       function myFunction(x){
+          if(x.matches){
+            var k=value_1;
+             for(let i=value_1; i<data_count; i++){
+               var l = Math.floor(Math.random() * 20);
+               var t = Math.floor(Math.random() * 50);
+  
+               if(k == bg_image.length){
+                 k=0;
+                 }
+               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+i+'" src="'+data[i]['src']+'">'+data[i]['name']+'</div>');
+   
+           k++;
+           if(i != 0){
+           if(i%8 == 0){
+                 document.write('<br>')
+               }
+             }
+                 
+             }  
+          }else{
+            var k=value_1;
+             for(let i=value_1; i<data_count; i++){
+               var l = Math.floor(Math.random() * 200);
+               var t = Math.floor(Math.random() * 100);
+  
+               if(k == bg_image.length){
+                 k=0;
+                 }
+               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+i+'" src="'+data[i]['src']+'">'+data[i]['name']+'</div>');
+           k++;
+                 
+             }  
+          }
+     }
+           
+          
+             
+             var x = window.matchMedia("(max-width: 767px)")
+             myFunction(x) // Call listener function at run time
+             x.addListener(myFunction) // Attach listener function on state changes
+           </script>
+      </div>
+    </div> 
+     <!-- </div> -->
+    </div>
+     <div class="col-md-12 text-center">
+      <button class="btn" onclick=playAll(0)>Play All</button>
+      <button class="btn" value="1" id="pause_btn" onclick=playAll(1)>Stop</button>
+     </div>
+
+       
+    
+</body>
+
+</html>
+
