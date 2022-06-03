@@ -597,8 +597,8 @@ $( document ).ready(function() {
   
   var value = url.searchParams.get("value");
 var Soption=value;
-  const allParts= `https://bobby.codistan.org:4000/part?songId=${Soption}`;
-  const allSongs = `https://bobby.codistan.org:4000/songs`;
+  const allParts= `http://52.59.193.118:4000/part?songId=${Soption}`;
+  const allSongs = `http://52.59.193.118:4000/songs`;
   
 
   async function getSongs(url) {
