@@ -1,12 +1,3 @@
-<script>
-var Toption;
-var l;
-var t;
-
-let newdata = [];
-
-  
-
 
 </script>
 <!DOCTYPE html>
@@ -19,46 +10,21 @@ let newdata = [];
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <script src="public/howler/dist/howler.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="index.js"></script>
-  
-    
+    <!-- <script src="apis.js"></script> -->
+
+        <script src="index.js"></script>
+
 </head>
-<body onload="init()">
+<body onload="preload();">
   <div class="container">
   <div class="selectWrapper">
-    <select id="select-song" onchange="selectSong()">
-      
+    <select id="select-song" name="select-song" onchange="selectSong()">
       <option value="" >Select Song</option>
-         <option value="1" >Don't Worry Be Happy</option>
-        <option value="2">Just Enough</option>
-        <option value="3">Test Track</option>
-     
+   
     </select>
 
-    <script>
-
-if(Soption == 1){
-  newdata = data
-}else if(Soption == 2){
-  newdata = data2
-}else{
-  newdata = data3
-}
-
-
-      var my_tag = document.getElementsByTagName("option");
-var count = my_tag.length;
-for(var i = 0; i < count; i++){
- my_tag[i].value;
- if(my_tag[i].value == Soption){
-  my_tag[i].setAttribute("selected", "selected")
- } 
-
-
-}
-    </script>
 </div> 
 
   <div>
@@ -68,13 +34,13 @@ for(var i = 0; i < count; i++){
    </div> 
 
            
-              
+
         
 
     <div class="drag-items row">
      <!-- <div id="outer-dropzone" class="dropzone"> -->
      <div class="col">
-      <div class="left-circles">
+      <div class="left-circles" id="left-circles-id">
         <script>	
 
 function selectSong(){
@@ -83,55 +49,7 @@ function selectSong(){
     Toption = select.options[select.selectedIndex].value;
      window.location = "?value="+Toption;
 }
-
-
-    var data_count = newdata.length;
-        var value_1 = parseInt(data_count/2);
-   function myFunction(x) {
-  if (x.matches) { // If media query matches
-
-          var k=0;
   
-             for(let j=0; j<value_1; j++){
-               l = Math.floor(Math.random() * 2);
-               t = Math.floor(Math.random() * 5);
-  
-               if(k == bg_image.length){
-                 k=0;
-                 }
-                 if(Soption==newdata[j]["parent"]){
-               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+j+'" src="'+newdata[j]['src']+'">'+newdata[j]['name']+'</div>');
-                 }
-               k++;
-           if(j != 0){
-           if(j%3 == 2){
-                 document.write('<br>')
-               }
-             } }
-  } else {
-    
-          var k=0;
-  
-             for(let j=0; j<value_1; j++){
-               l = Math.floor(Math.random() * 200);
-               t = Math.floor(Math.random() * 100);
-  
-               if(k == bg_image.length){
-                 k=0;
-                 }
-                 if(Soption==newdata[j]["parent"]){
-               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+j+'" src="'+newdata[j]['src']+'">'+newdata[j]['name']+'</div>');
-              }
-               k++;
-                 
-             } 
-  }
-}
-
-var x = window.matchMedia("(max-width: 767px)")
-myFunction(x) // Call listener function at run time
-x.addListener(myFunction) // Attach listener function on state changes
-
                    
            </script>
       </div>
@@ -141,55 +59,10 @@ x.addListener(myFunction) // Attach listener function on state changes
       <!-- </div> -->
 
      <div class="col" style="position:inherit;">
-      <div class="right-circles">
+      <div class="right-circles" id="right-circles-id">
         <script>	
 
-       function myFunction(x){
-          if(x.matches){
-            var k=value_1;
-             for(let i=value_1; i<data_count; i++){
-               l = Math.floor(Math.random() * 2);
-               t = Math.floor(Math.random() * 5);
-  
-               if(k == bg_image.length){
-                 k=0;
-                 }
-                 if(Soption==newdata[i]["parent"]){
-               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+i+'" src="'+newdata[i]['src']+'">'+newdata[i]['name']+'</div>');
-                 }
-           k++;
-           if(i != 0){
-           if(i%4 == 0){
-                 document.write('<br>')
-               }
-             }
-                 
-             }  
-          }else{
-            var k=value_1;
-             for(let i=value_1; i<data_count; i++){
-                l = Math.floor(Math.random() * 200);
-                t = Math.floor(Math.random() * 100);
-  
-               if(k == bg_image.length){
-                 k=0;
-                 }
-                 
-                 
-                 if(Soption==newdata[i]["parent"]){
-               document.write('<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+i+'" src="'+newdata[i]['src']+'">'+newdata[i]['name']+'</div>');
-                 }
-           k++;
-                 
-             }  
-          }
-     }
-           
-          
-             
-             var x = window.matchMedia("(max-width: 767px)")
-             myFunction(x) // Call listener function at run time
-             x.addListener(myFunction) // Attach listener function on state changes
+    
            </script>
       </div>
     </div> 
@@ -198,7 +71,7 @@ x.addListener(myFunction) // Attach listener function on state changes
      <div class="col-md-12 text-center btn-div">
       <!-- <button class="btn" onclick=playAll(0)>Play All</button>
       <button class="btn" value="1" id="pause_btn" onclick=playAll(1)>Stop</button> -->
-      <img id="play_all" title="Play All" style="cursor: pointer; margin-right: 2rem;" src="assets/playall.png" onclick=playAll(0) />
+      <img id="play_all" title="Play All" style="cursor: pointer; margin-right: 2rem;" src="assets/playall.png" onclick=playAll() />
       <img title="Play" id="play_img" style="display: none; cursor: pointer;" src="assets/play.png" onclick=nowplay() />
       <img title="Pause" id="pause_img" style="cursor: pointer;" src="assets/pause.png" onclick=nowpause() />
       <img title="Reset" id="reset_all" style="cursor: pointer; margin-left: 2rem;" src="assets/reset.png" onclick=reset() />

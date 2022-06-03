@@ -10,7 +10,12 @@ var sound,newsrc;
 let playing=[],mutedlistid=[],listelements=[],mutedlist=[];
 var playallflag = 0
 var iiid;
-
+var Toption,getSongId;
+  var l;
+  var t;
+  var songId;
+  var newdata = [];
+  var getSongId;
 
 var url_string = window.location.href; //window.location.href
 var url = new URL(url_string);
@@ -20,24 +25,14 @@ function init()
 {
 
   var sound;
-  for(let m=0; m<data.length; m++){
 
-    if(Soption == 1){
+  for(let m=0; m<newdata.length; m++){
+
     sound = new Howl({
-     src: [data[m]['src']],
+     src: [newdata[m]['source']],
      loop: true,
    })
-  }else if(Soption == 2){
-    sound = new Howl({
-      src: [data2[m]['src']],
-      loop: true,
-  })
-}else if(Soption == 3){
-  sound = new Howl({
-    src: [data3[m]['src']],
-    loop: true,
-})
-}
+
 // sound.play();
 // Howler.mute(true);
 
@@ -46,7 +41,6 @@ function init()
    mutedlist[m] = sound;
 
    sound.mute(true , id);
-  //  console.log(id,data[m]['src'])
   }
   
     document.addEventListener('click', function(evt) { 
@@ -61,12 +55,10 @@ function init()
 function mutedplaysongs(mutedLists){
 
   for(let m=0; m<mutedLists.length; m++){
-       
            var eleme = mutedLists[m]
-        var songID = eleme.getAttribute("id");
-        // var id = mutedlist[songID].play();
-        mutedlist[songID].mute(false ,  mutedlistid[songID]);
-
+        var songID = eleme.getAttribute('id');
+        // var id = mutedlist[songID].play(); 
+                 mutedlist[songID].mute(false ,  mutedlistid[songID]);
 
   }
 
@@ -210,46 +202,6 @@ let bg_image = [
   {src:"assets/base-bg11.png"}
 ]
 
-let data = [
-{ name: "Base0", src: "assets/sound1.wav",parent:1,play: 1 },
-{ name: "Base1", src: "assets/sound2.wav" ,parent:1, play: 1},
-{ name: "Base2", src: "assets/sound3.wav" ,parent:1, play: 1},
-{ name: "Base3", src: "assets/sound4.wav" ,parent:1, play: 1},
-{ name: "Base4", src: "assets/sound5.wav" ,parent:1, play: 1},
-{ name: "Base5", src: "assets/sound6.wav" ,parent:1, play: 1},
-{ name: "Base6", src: "assets/sound7.wav" ,parent:1, play: 1},
-{ name: "Base7", src: "assets/sound8.wav" ,parent:1, play: 1},
-{ name: "Base8", src: "assets/sound9.wav" ,parent:1, play: 1},
-{ name: "Base9", src: "assets/sound10.wav" ,parent:1, play: 1},
-{ name: "Base10", src: "assets/sound11.wav" ,parent:1, play: 1},
-{ name: "Base11", src: "assets/sound12.wav" ,parent:1, play: 1}
-]
-
-let data2 = [
-  { name: "Base0", src: "assets/sound13.wav" ,parent:2, play: 1},
-{ name: "Base1", src: "assets/sound14.wav" ,parent:2, play: 1},
-{ name: "Base2", src: "assets/sound15.wav" ,parent:2, play: 1},
-{ name: "Base3", src: "assets/sound16.wav" ,parent:2, play: 1},
-{ name: "Base4", src: "assets/sound17.wav" ,parent:2, play: 1},
-{ name: "Base5", src: "assets/sound18.wav" ,parent:2, play: 1},
-{ name: "Base6", src: "assets/sound19.wav" ,parent:2, play: 1},
-{ name: "Base7", src: "assets/sound20.wav" ,parent:2, play: 1}
-]
-
-let data3 = [
-  { name: "bass", src: "assets/sound1.wav",parent:3,play: 1 },
-  { name: "harmony", src: "assets/sound2.wav" ,parent:3, play: 1},
-  { name: "melody", src: "assets/sound3.wav" ,parent:3, play: 1},
-  { name: "percussion", src: "assets/sound4.wav" ,parent:3, play: 1},
-  { name: "rhythm", src: "assets/sound5.wav" ,parent:3, play: 1},
-  { name: "rhythm2", src: "assets/sound6.wav" ,parent:3, play: 1},
-  { name: "rhythm3", src: "assets/sound7.wav" ,parent:3, play: 1},
-  { name: "bass2", src: "assets/sound8.wav" ,parent:3, play: 1},
-  { name: "percussion1", src: "assets/sound9.wav" ,parent:3, play: 1},
-  { name: "riff1", src: "assets/sound10.wav" ,parent:3, play: 1},
-  { name: "riff2", src: "assets/sound11.wav" ,parent:3, play: 1},
-  { name: "riff3", src: "assets/sound12.wav" ,parent:3, play: 1}
-  ]
 
 function dragMoveListener (event) {
   
@@ -297,17 +249,16 @@ interact('.dropzone').dropzone({
       event.relatedTarget.classList.remove('can-drop')
       // event.relatedTarget.textContent = 'Dragged out'
       
-      // console.log(event.relatedTarget)
       var audio = document.getElementById('audio');
       
-          //  console.log(iiid);
 
       playing=playing.filter((element)=>{return element!==event.relatedTarget})
 
 var flagcheck = 0;
-      for(var j=0; j<playlist.length; j++){
+      for(var j=0; j<listelements.length; j++){
 flagcheck = 1
-        if(event.relatedTarget == playlist[j]){
+        if(event.relatedTarget == listelements[j]){
+
           // playlist[j]['sound'].stop();
           //  playlist[j]['src'] = '';
 
@@ -317,8 +268,6 @@ flagcheck = 1
             playlist.splice(j,1)
             listelements.splice(j,1)
           
-          
-
             if(event.relatedTarget.getAttribute("src") == audio.getAttribute("src")){
              
               
@@ -398,6 +347,7 @@ if(playlist.length == 0){
             playlist.push(event.relatedTarget)
             listelements.push(event.relatedTarget)
             mutedplaysongs(listelements);
+
             // playsongs(playlist);
             // sound.play();
             sty.style.width = sizee+'rem';
@@ -452,7 +402,7 @@ if(playlist.length == 0){
       location.reload();
     }
 
-    function playAll(flag){
+    function playAll(){
       for(let m=0; m<mutedlist.length; m++){
 
      let remTransform = document.getElementById(m);
@@ -467,59 +417,57 @@ if(playlist.length == 0){
 
       var sound;
       playallflag = 1
-      // console.log(mutedlist)
-    for(let m=0; m<mutedlist.length; m++){
-      sound = new Howl({
-       src: [mutedlist[m]['src']]
-     });
-     if(flag == 0){
-      mutedlist[m].play();
+    
       let aaa = (document.getElementById("play_all"));
-                    aaa.removeAttribute('onclick');
+       aaa.removeAttribute('onclick');
+ 
+     for(let i=0; i<newdata.length; i++){
+     var ii= document.getElementById(i);
+     listelements.push(ii);
      }
-     else if(flag==1){
-      location.reload();
-      Howler.stop();
-      }
+     mutedplaysongs(listelements);
+                    
+    
     
 
-    }
-
-    // var valueM = parseInt(data_count);
-    // if(valueM%4==1){
-    //   valueN=Math.floor(valueM/4);
-    // }
-    // console.log(valueM)
+    
     var x = window.matchMedia("(max-width: 767px)")
     if(x.matches){
       var elem = document.getElementById("inner-dropzone");
       elem.style.width="22rem";
       elem.style.height="22rem";
       elem.style.borderImage="url('assets/border-image.png') 200 40 / 293px 52px / 37px stretch";
+      elem.style.borderImageSlice="";
+
+      size=size+24
+      sizee_mob=sizee_mob+10
+      px=px+156
+      pxx=pxx+24
+
       if(Soption==1){
       for(let j=0; j<3; j++){
         document.getElementById(j).style.left="15";
         document.getElementById(j).style.top="215";
         document.getElementById(j).style.minWidth="80px";
-        document.getElementById(j).style.zIndex="-100";
+        // document.getElementById(j).style.zIndex="-100";
       }
       for(let j=3; j<6; j++){
         document.getElementById(j).style.left="5";
         document.getElementById(j).style.top="230";
         document.getElementById(j).style.minWidth="80px";
-        document.getElementById(j).style.zIndex="-100";
+        // document.getElementById(j).style.zIndex="-100";
       }
       for(let j=6; j<9; j++){
         document.getElementById(j).style.left="15";
         document.getElementById(j).style.top="-175";
         document.getElementById(j).style.minWidth="80px";
-        document.getElementById(j).style.zIndex="-100";
+        // document.getElementById(j).style.zIndex="-100";
       }
       for(let j=9; j<12; j++){
         document.getElementById(j).style.left="15";
         document.getElementById(j).style.top="-185";
         document.getElementById(j).style.minWidth="80px";
-        document.getElementById(j).style.zIndex="-110";
+        // document.getElementById(j).style.zIndex="-110";
       }
     }
     if(Soption==2){
@@ -527,56 +475,285 @@ if(playlist.length == 0){
         document.getElementById(j).style.left="5";
         document.getElementById(j).style.top="230";
         document.getElementById(j).style.minWidth="80px";
-        document.getElementById(j).style.zIndex="-100";
+        // document.getElementById(j).style.zIndex="-100";
       }
       for(let j=4; j<9; j++){
         document.getElementById(j).style.left="15";
         document.getElementById(j).style.top="-225";
         document.getElementById(j).style.minWidth="80px";
-        document.getElementById(j).style.zIndex="-110";
+        // document.getElementById(j).style.zIndex="-110";
+      }
+    }
+    if(Soption==3){
+      for(let j=0; j<3; j++){
+        document.getElementById(j).style.left="15";
+        document.getElementById(j).style.top="215";
+        document.getElementById(j).style.minWidth="80px";
+        // document.getElementById(j).style.zIndex="-100";
+      }
+      for(let j=3; j<6; j++){
+        document.getElementById(j).style.left="5";
+        document.getElementById(j).style.top="230";
+        document.getElementById(j).style.minWidth="80px";
+        // document.getElementById(j).style.zIndex="-100";
+      }
+      for(let j=6; j<9; j++){
+        document.getElementById(j).style.left="15";
+        document.getElementById(j).style.top="-175";
+        document.getElementById(j).style.minWidth="80px";
+        // document.getElementById(j).style.zIndex="-100";
+      }
+      for(let j=9; j<12; j++){
+        document.getElementById(j).style.left="15";
+        document.getElementById(j).style.top="-185";
+        document.getElementById(j).style.minWidth="80px";
+        // document.getElementById(j).style.zIndex="-110";
       }
     }
   }else{
-
+   
     var elem = document.getElementById("inner-dropzone");
-    elem.style.width="26rem";
-    elem.style.height="26rem";
+    elem.style.width="25rem";
+    elem.style.height="25rem";
     elem.style.borderImage="url('assets/border-image.png') 200 40 / 293px 52px / 70px stretch";
+    elem.style.borderImageSlice="";
+
+    size=size+60
+    sizee=sizee+12
+    px=px+140
+    pxx=pxx+24
+    
+
     if(Soption==1){
     for(let j=0; j<3; j++){
       document.getElementById(j).style.left="345";
       document.getElementById(j).style.top="245";
-      document.getElementById(j).style.zIndex="-100";
+      // document.getElementById(j).style.zIndex="-100";
     }
     for(let j=3; j<6; j++){
       document.getElementById(j).style.left="445";
       document.getElementById(j).style.top="-10";
-      document.getElementById(j).style.zIndex="-100";
+      // document.getElementById(j).style.zIndex="-100";
     }
     for(let j=6; j<9; j++){
       document.getElementById(j).style.left="-190";
       document.getElementById(j).style.top="190";
-      document.getElementById(j).style.zIndex="-100";
+      // document.getElementById(j).style.zIndex="-100";
     }
     for(let j=9; j<12; j++){
       document.getElementById(j).style.left="-120";
       document.getElementById(j).style.top="10";
-      document.getElementById(j).style.zIndex="-100";
+      // document.getElementById(j).style.zIndex="-100";
     }
   }
   if(Soption==2){
     for(let j=0; j<4; j++){
       document.getElementById(j).style.left="395";
       document.getElementById(j).style.top="215";
-      document.getElementById(j).style.zIndex="-100";
+      // document.getElementById(j).style.zIndex="-100";
     }
     for(let j=4; j<9; j++){
       document.getElementById(j).style.left="-190";
       document.getElementById(j).style.top="200";
-      document.getElementById(j).style.zIndex="-100";
+      // document.getElementById(j).style.zIndex="-100";
+    }
+  }
+  if(Soption==3){
+    for(let j=0; j<3; j++){
+      document.getElementById(j).style.left="345";
+      document.getElementById(j).style.top="245";
+      // document.getElementById(j).style.zIndex="-100";
+    }
+    for(let j=3; j<6; j++){
+      document.getElementById(j).style.left="445";
+      document.getElementById(j).style.top="-10";
+      // document.getElementById(j).style.zIndex="-100";
+    }
+    for(let j=6; j<9; j++){
+      document.getElementById(j).style.left="-190";
+      document.getElementById(j).style.top="190";
+      // document.getElementById(j).style.zIndex="-100";
+    }
+    for(let j=9; j<12; j++){
+      document.getElementById(j).style.left="-120";
+      document.getElementById(j).style.top="10";
+      // document.getElementById(j).style.zIndex="-100";
     }
   }
 }
     
       }
+
       
+      
+////////////////////////////////jquery code///////////////////////////
+function preload(){
+
+
+
+ 
+
+$( document ).ready(function() {
+  
+  var value = url.searchParams.get("value");
+var Soption=value;
+  const allParts= `https://bobby.codistan.org:4000/part?songId=${Soption}`;
+  const allSongs = `https://bobby.codistan.org:4000/songs`;
+  
+
+  async function getSongs(url) {
+    const response = await fetch(url);
+
+// Storing data in form of JSON
+var songData = await response.json();
+songData?.data.map((song)=>{
+  getSongId= song.id;
+ 
+  $("#select-song ").append(new Option(song.title, song.id));
+  var my_tag = document.getElementsByTagName("option");
+var count = my_tag.length;
+for(var i = 0; i < count; i++){
+my_tag[i].value;
+if(my_tag[i].value == Soption){
+my_tag[i].setAttribute("selected", "selected")
+} 
+
+
+}
+})
+
+}
+
+
+async function getParts(url) {
+  const response = await fetch(url);
+
+// Storing data in form of JSON
+var partData = await response.json();
+return partData;
+// newdata = partData;
+// partData?.data.map((part)=>{
+//      newdata.push(part);
+// })
+
+
+}
+// Calling that async function
+getSongs(allSongs);
+getParts(allParts);
+
+
+////////////////////////////////////////////////////
+
+getParts(allParts).then(data=>{
+ 
+  newdata = data?.data
+
+  init()
+
+  var data_count = newdata.length;
+      var value_1 = parseInt(data_count/2);   
+
+      $.fn.myFunction = function() {
+        var html_object="";
+
+  if (window.matchMedia('(max-width: 767px)').matches) { // If media query matches
+        var k=0;
+     
+
+
+           for(let j=0; j<value_1; j++){
+            
+             l = Math.floor(Math.random() * 2);
+             t = Math.floor(Math.random() * 5);
+
+             if(k == bg_image.length){
+               k=0;
+               }
+
+               html_object+='<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+j+'" src="'+newdata[j]['source']+'">'+newdata[j]['title']+'</div>'
+             k++;
+         if(j != 0){
+         if(j%3 == 2){
+          html_object+='<br>'
+
+             }
+           } }
+           $('#left-circles-id').html(html_object);
+} else {
+ 
+  
+        var k=0;
+        
+           for(let j=0; j<value_1; j++){
+             l = Math.floor(Math.random() * 200);
+             t = Math.floor(Math.random() * 10);
+          
+             if(k == bg_image.length){
+               k=0;
+               }
+             
+             html_object+='<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+j+'" src="'+newdata[j]['source']+'">'+newdata[j]['title']+'</div>'
+            
+             k++;
+               
+           } 
+           $('#left-circles-id').html(html_object);
+}
+}
+
+
+$.fn.myFunction(); 
+
+
+
+$.fn.myFunction = function(){
+var html_object="";
+  if (window.matchMedia('(max-width: 767px)').matches){
+    var k=value_1;
+     for(let i=value_1; i<data_count; i++){
+       l = Math.floor(Math.random() * 2);
+       t = Math.floor(Math.random() * 5);
+
+       if(k == bg_image.length){
+         k=0;
+         }
+         html_object+='<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+i+'" src="'+newdata[i]['source']+'">'+newdata[i]['title']+'</div>'
+         
+   k++;
+   if(i != 0){
+   if(i%4 == 0){
+    html_object+='<br>'
+       }
+     }
+         
+     }  
+     $('#right-circles-id').html(html_object);
+  }else{
+    var k=value_1;
+     for(let i=value_1; i<data_count; i++){
+        l = Math.floor(Math.random() * 200);
+        t = Math.floor(Math.random() * 10);
+
+       if(k == bg_image.length){
+         k=0;
+         }
+         
+         html_object+='<div class="drag-drop" style="position:relative;top:'+t+'px;left:'+l+'px;background-image: url('+bg_image[k]['src']+')" draggable="true" id="'+i+'" src="'+newdata[i]['source']+'">'+newdata[i]['title']+'</div>'
+        
+   k++;
+         
+     }  
+     $('#right-circles-id').html(html_object);
+  }
+}
+   
+  
+
+   $.fn.myFunction() 
+  
+
+});
+});
+}
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
