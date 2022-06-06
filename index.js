@@ -597,8 +597,8 @@ $( document ).ready(function() {
   
   var value = url.searchParams.get("value");
 var Soption=value;
-  const allParts= `http://52.59.193.118:4000/api/part?songId=${Soption}`;
-  const allSongs = `http://52.59.193.118:4000/api/songs`;
+  const allParts= `http://3.72.28.47/api/part?songId=${Soption}`;
+  const allSongs = `http://3.72.28.47/api/songs`;
   
 
   async function getSongs(url) {
